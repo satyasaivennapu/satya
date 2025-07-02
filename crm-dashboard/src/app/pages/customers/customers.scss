@@ -11,9 +11,10 @@
   margin-bottom: 8px;
 
   .page-title {
+    font-family: var(--crm-font-family-headings); // Explicitly use heading font
     font-size: 28px;
-    font-weight: 500;
-    color: var(--md-sys-color-primary, #2196f3);
+    font-weight: 600; // Slightly bolder
+    color: var(--crm-on-surface-text);
     margin: 0;
   }
 
@@ -23,6 +24,8 @@
 }
 
 .customers-table-card {
+  background-color: var(--crm-surface-card); // Ensure card uses defined surface
+  border-radius: 8px; // Consistent rounded corners
   mat-card-header {
     display: flex;
     justify-content: space-between;
@@ -36,56 +39,81 @@
   }
 
   .filter-field {
-    width: 300px; // Fixed width or max-width
+    width: 300px;
     font-size: 0.9em;
-    .mat-mdc-form-field-subscript-wrapper { // For MDC based fields
-        display: none; // Hide the underline/hint space if not needed
+    .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+    // Style the outline to match theme accents
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--crm-border-color) !important;
+    }
+    &:focus-within {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: var(--md-sys-color-primary) !important; // Use primary color on focus
+        border-width: 2px !important;
+      }
     }
   }
 }
 
 .table-container {
-  overflow-x: auto; // Important for responsiveness of the table
+  overflow-x: auto;
   width: 100%;
+  border: 1px solid var(--crm-border-color); // Add a border around the table container
+  border-radius: 8px; // Match card radius
 }
 
-.mat-mdc-table { // Target new MDC table class
+.mat-mdc-table {
   width: 100%;
+  background-color: var(--crm-surface-card); // Ensure table bg matches card
 }
 
-.mat-mdc-header-cell, .mat-mdc-cell { // Target new MDC cell classes
-  padding-right: 16px; // Ensure some padding between columns
+.mat-mdc-header-cell {
+  font-family: var(--crm-font-family-headings); // Headings font for table headers
+  font-weight: 600;
+  color: var(--crm-on-surface-text);
+  background-color: rgba(var(--md-sys-color-primary-rgb), 0.05); // Very light primary shade for header bg
+}
+
+.mat-mdc-header-cell, .mat-mdc-cell {
+  padding: 12px 16px; // Consistent padding
   &:last-child {
-    padding-right: 0; // No padding for the last cell (actions)
+    padding-right: 16px; // Ensure last cell also has padding if actions are there
   }
 }
 
-.mat-column-actions { // Ensure actions column has enough space
+.mat-column-actions {
   width: 150px;
-  text-align: right;
+  text-align: center; // Center align action buttons
 }
 .mat-mdc-header-cell.mat-column-actions, .mat-mdc-cell.mat-column-actions {
- text-align: right;
+ text-align: center; // Center align action buttons
 }
 
 
 .status-badge {
-  padding: 4px 8px;
-  border-radius: 12px; // Pill shape
-  font-size: 0.8em;
-  font-weight: 500;
-  color: #fff; // Default white text
+  padding: 5px 10px; // Slightly more padding
+  border-radius: 16px; // More pronounced pill shape
+  font-size: 0.75em; // Slightly smaller for a more refined look
+  font-weight: 600; // Bolder
+  color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px; // More spacing
+  line-height: 1; // Ensure consistent height
 
   &.status-active {
-    background-color: var(--md-sys-color-success, #4CAF50); // Assuming success color is green
+    background-color: var(--crm-accent-green);
   }
   &.status-inactive {
-    background-color: var(--md-sys-color-on-surface-variant, #757575); // Muted grey
+    background-color: var(--crm-accent-red); // Use red for inactive for stronger visual cue
   }
   &.status-lead {
-    background-color: var(--md-sys-color-tertiary, #03a9f4); // Light blue or another distinct color
+    background-color: var(--crm-accent-orange); // Use orange for lead
   }
 }
 

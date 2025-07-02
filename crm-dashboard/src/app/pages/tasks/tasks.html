@@ -2,7 +2,7 @@
   <div class="tasks-header">
     <h1 class="page-title">Task Board</h1>
     <button mat-flat-button color="primary">
-      <mat-icon>add_task</mat-icon>
+      <mat-icon>playlist_add</mat-icon>
       Add New Task
     </button>
   </div>
@@ -11,7 +11,7 @@
     <!-- To Do Column -->
     <div class="task-column">
       <h2 class="column-title">
-        <mat-icon class="column-icon">list_alt</mat-icon>
+        <mat-icon class="column-icon">pending_actions</mat-icon>
         To Do ({{todoTasks.length}})
       </h2>
       <div class="task-list">
@@ -26,7 +26,7 @@
             <div class="task-meta">
               <mat-chip-listbox aria-label="Task due date">
                 <mat-chip selected color="accent" disabled>
-                  <mat-icon matChipAvatar>event</mat-icon>
+                  <mat-icon matChipAvatar>event_note</mat-icon>
                   Due: {{ task.dueDate | date:'mediumDate' }}
                 </mat-chip>
               </mat-chip-listbox>
@@ -38,7 +38,7 @@
             </button>
             <mat-menu #taskMenu="matMenu">
               <button mat-menu-item (click)="startProgress(task)">
-                <mat-icon>play_circle_outline</mat-icon>
+                <mat-icon>play_arrow</mat-icon>
                 <span>Start Progress</span>
               </button>
               <button mat-menu-item (click)="markAsComplete(task)">
@@ -59,7 +59,7 @@
     <!-- In Progress Column -->
     <div class="task-column">
       <h2 class="column-title">
-        <mat-icon class="column-icon">sync</mat-icon>
+        <mat-icon class="column-icon">autorenew</mat-icon>
         In Progress ({{inProgressTasks.length}})
       </h2>
       <div class="task-list">
@@ -107,7 +107,7 @@
     <!-- Completed Column -->
     <div class="task-column">
       <h2 class="column-title">
-        <mat-icon class="column-icon">task_alt</mat-icon>
+        <mat-icon class="column-icon">check_circle_outline</mat-icon>
         Completed ({{completedTasks.length}})
       </h2>
       <div class="task-list">
@@ -121,9 +121,9 @@
             <p class="task-description">{{ task.description }}</p>
              <div class="task-meta">
                <mat-chip-listbox aria-label="Task due date">
-                <mat-chip selected color="primary" disabled> <!-- Different color for completed -->
+                <mat-chip selected color="primary" disabled>
                   <mat-icon matChipAvatar>event_available</mat-icon>
-                  Completed: {{ task.dueDate | date:'mediumDate' }} <!-- Assuming dueDate is completion date for simplicity -->
+                  Completed: {{ task.dueDate | date:'mediumDate' }}
                 </mat-chip>
               </mat-chip-listbox>
             </div>
@@ -134,11 +134,11 @@
             </button>
             <mat-menu #taskMenu="matMenu">
               <button mat-menu-item (click)="moveToToDo(task)">
-                <mat-icon>replay</mat-icon>
+                <mat-icon>replay_circle_filled</mat-icon>
                 <span>Re-open (To Do)</span>
               </button>
                <button mat-menu-item color="warn" (click)="deleteTask(task)">
-                <mat-icon>delete_outline</mat-icon>
+                <mat-icon>delete_forever_outlined</mat-icon>
                 <span>Delete Task</span>
               </button>
             </mat-menu>

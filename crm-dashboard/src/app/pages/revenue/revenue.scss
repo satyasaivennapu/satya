@@ -5,25 +5,40 @@
 }
 
 .page-title {
+  font-family: var(--crm-font-family-headings); // Explicitly use heading font
   font-size: 28px;
-  font-weight: 500;
-  color: var(--md-sys-color-primary, #2196f3); // Use theme primary color if available
-  margin-bottom: 8px; // Adjust spacing from title to first card
+  font-weight: 600; // Slightly bolder for page titles
+  color: var(--crm-on-surface-text);
+  margin-bottom: 20px;
 }
 
 .summary-revenue-card {
-  background-color: var(--md-sys-color-primary-container, #e3f2fd); // Light primary container color
-  color: var(--md-sys-color-on-primary-container, #0d47a1); // Text color on primary container
+  background-color: var(--crm-accent-green);
+  color: #fff;
+  border-radius: 8px;
+  padding: 20px; // Add some padding
 
   .mat-card-avatar.summary-icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-    color: var(--md-sys-color-primary, #2196f3);
+    // Using a specific icon for revenue, e.g. account_balance orpayments
+    // This should be changed in the HTML template if a new icon is desired.
+    // For now, styling assumes 'insights' or similar.
+    font-size: 48px; // Larger icon
+    width: 48px;
+    height: 48px;
+    color: #fff;
+    background-color: rgba(255,255,255,0.2); // Subtle background for the icon itself
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px; // Ensure spacing from title
   }
 
   mat-card-title {
-    font-weight: 500;
+    font-family: var(--crm-font-family-headings);
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.1em;
   }
 
   .total-revenue-value {

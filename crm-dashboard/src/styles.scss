@@ -3,16 +3,8 @@
 /* -----------------------------
    Create default theme
 ------------------------------ */
-// Define a theme. This can be empty if only CSS custom properties are used for colors.
-// However, mat.all-component-themes still expects a SASS theme map.
 $theme: mat.define-theme((
-  color: (
-    // It's good to define at least dummy SASS palettes if mat.all-component-themes is used,
-    // even if primary color definitions are overridden by CSS custom properties.
-    // Or, ensure that mat.all-component-themes supports an empty color config
-    // if all components are expected to get colors from CSS custom properties.
-    // For now, let's assume an empty color config is fine with MDC theming if CSS vars are the source of truth.
-  )
+  color: ()
 ));
 
 /*
@@ -21,22 +13,51 @@ $theme: mat.define-theme((
   to ensure CSS custom properties are scoped correctly.
 */
 :root {
-  @include mat.core(); // Include Angular Material core styles.
-  // Include the theme styles for all components.
+  @include mat.core();
   @include mat.all-component-themes($theme);
-}
 
-/* -----------------------------
-   CSS variable overrides for colors (Source of Truth)
------------------------------- */
-:root {
-  --md-sys-color-primary: #2196f3; // Hex for primary
-  --md-sys-color-primary-rgb: 33, 150, 243; // RGB for primary (used in layout.scss for rgba)
-  --md-sys-color-secondary: #e91e63; // Hex for secondary
-  // Define other custom properties as needed (e.g., on-primary, surface, etc.)
-  // For example, if your components rely on them:
-  --mat-app-background-color: #fafafa; // Background for the entire app
-  --mat-card-background-color: #ffffff; // Background for cards
+  // CSS variable overrides for colors (Source of Truth)
+  // Core Palette (from user)
+  --md-sys-color-primary: #2196f3;       // Blue 500
+  --md-sys-color-primary-rgb: 33, 150, 243;
+  --md-sys-color-on-primary: #ffffff;     // White text on primary
+
+  --md-sys-color-secondary: #e91e63;     // Pink 500
+  --md-sys-color-on-secondary: #ffffff;   // White text on secondary
+
+  // Surface & Backgrounds
+  --crm-surface-background: #f4f6f8;
+  --crm-surface-card: #ffffff;
+  --crm-surface-sidebar: #2c3e50;
+  --crm-surface-topbar: var(--md-sys-color-primary);
+
+  // Text on Surfaces
+  --crm-on-surface-text: #34495e;
+  --crm-on-sidebar-text: #ecf0f1;
+  --crm-on-sidebar-icon: #ecf0f1;
+  --crm-on-sidebar-active-text: #ffffff;
+  --crm-on-sidebar-active-icon: #ffffff;
+  --crm-on-sidebar-active-background: rgba(255, 255, 255, 0.1);
+  --crm-on-sidebar-hover-background: rgba(255, 255, 255, 0.05);
+
+  // Accents & Borders
+  --crm-border-color: #e0e0e0;
+  --crm-accent-blue: var(--md-sys-color-primary);
+  --crm-accent-pink: var(--md-sys-color-secondary);
+  --crm-accent-green: #2ecc71;
+  --crm-accent-orange: #e67e22;
+  --crm-accent-red: #e74c3c;
+
+  // Material Design Standard Overrides (can be used by Material components if not further customized)
+  --mat-app-background-color: var(--crm-surface-background); // Ensure this is set
+  --mat-card-background-color: var(--crm-surface-card); // Ensure this is set
+  --mat-toolbar-container-background-color: var(--crm-surface-topbar);
+  --mat-toolbar-standard-state-layer-color: var(--md-sys-color-on-primary);
+  --mat-sidenav-container-background-color: var(--crm-surface-sidebar);
+
+  // Font Variables
+  --crm-font-family-base: 'Roboto', "Helvetica Neue", sans-serif;
+  --crm-font-family-headings: 'Poppins', "Helvetica Neue", sans-serif;
 }
 
 /* -----------------------------
@@ -45,14 +66,19 @@ $theme: mat.define-theme((
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--mat-app-background-color, #fafafa); // Use CSS variable
-  color: var(--md-sys-color-on-surface, #212121); // Example for default text color
+  font-family: var(--crm-font-family-base); // Use base font
+  background-color: var(--crm-surface-background);
+  color: var(--crm-on-surface-text);
 }
 
 html {
   font-size: 16px;
 }
+
+h1, h2, h3, h4, h5, h6, .page-title, .mat-card-title { // Apply heading font
+  font-family: var(--crm-font-family-headings);
+}
+
 
 @media (max-width: 960px) {
   html { font-size: 15px; }
