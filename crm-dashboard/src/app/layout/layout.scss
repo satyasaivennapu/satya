@@ -1,4 +1,5 @@
-@use '@angular/material' as mat;
+// Using @import as a fallback for Material theming due to issues with @use
+@import '@angular/material/theming';
 
 .sidenav-container {
   height: calc(100vh - 64px); /* Assuming toolbar height is 64px */
@@ -35,12 +36,21 @@ mat-nav-list a.mat-list-item {
   }
 
   &.active-link {
-    $active-link-palette: mat.$indigo-palette; // Define local variable for the palette
-    background-color: mat.get-color-from-palette($active-link-palette, 50);
-    color: mat.get-color-from-palette($active-link-palette, 700);
+    // Using global SASS functions if available after @import in styles.scss
+    // Note: $mat-indigo should be available globally from styles.scss
+    // mat-get-color-from-palette is not a standard global function from '@angular/material/theming'.
+    // This part might need adjustment based on what $crm-theme exposes or by defining colors directly.
+    // For now, attempting to use primary color from the theme.
+    // This requires $crm-theme to be accessible or colors to be defined differently.
+    // As a fallback, I will use hardcoded values that match the intent.
+    // background-color: mat-color($crm-primary, lighter); // This would be ideal if $crm-primary is in scope
+    // color: mat-color($crm-primary);
+    background-color: #e8eaf6; // Fallback: Light Indigo (50)
+    color: #3f51b5; // Fallback: Indigo (500)
 
     .mat-icon {
-      color: mat.get-color-from-palette($active-link-palette, 700);
+      // color: mat-color($crm-primary);
+      color: #3f51b5; // Fallback: Indigo (500)
     }
   }
 }
