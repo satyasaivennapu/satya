@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// RouterOutlet is no longer directly used here, LayoutComponent handles it.
 import { LayoutComponent } from './layout/layout'; // Import the layout component
 
 @Component({
   selector: 'app-root',
   standalone: true, // Ensure it's standalone
-  imports: [RouterOutlet, LayoutComponent], // Add LayoutComponent here
+  imports: [LayoutComponent], // Remove RouterOutlet, LayoutComponent handles its own RouterOutlet
   template: '<app-layout></app-layout>', // Use LayoutComponent as the main view
   styleUrl: './app.scss'
 })

@@ -43,9 +43,7 @@ export class DashboardComponent implements OnInit {
   isLoadingExpenseChart = true;
 
   // ngx-charts options
-  // Let view be undefined for ngx-charts to attempt auto-sizing based on container.
-  // Alternatively, provide a default that works well and let CSS handle responsiveness of the container.
-  barChartView: [number, number] | undefined = undefined; // Using undefined for auto-sizing attempt
+  barChartView: [number, number] = [700, 300]; // Ensure this is not undefined
   barChartShowXAxis = true;
   barChartShowYAxis = true;
   barChartGradient = false;
@@ -61,7 +59,7 @@ export class DashboardComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  pieChartView: [number, number] | undefined = undefined; // Using undefined for auto-sizing attempt
+  pieChartView: [number, number] = [500, 300]; // Ensure this is not undefined
   pieChartGradient = true;
   pieChartShowLegend = true;
   pieChartShowLabels = true;
