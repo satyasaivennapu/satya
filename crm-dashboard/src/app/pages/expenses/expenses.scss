@@ -1,12 +1,132 @@
-.page-container {
-  padding: 0;
+.expenses-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-mat-card {
-  margin-top: 20px;
-}
-
-mat-card-title {
-  font-size: 20px;
+.page-title {
+  font-size: 28px;
   font-weight: 500;
+  color: var(--md-sys-color-primary, #2196f3);
+  margin-bottom: 8px;
+}
+
+.summary-expense-card {
+  background-color: var(--md-sys-color-tertiary-container, #e1f5fe); // Example: Light blue
+  color: var(--md-sys-color-on-tertiary-container, #01579b);     // Example: Dark blue
+
+  .mat-card-avatar.summary-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--md-sys-color-tertiary, #03a9f4); // Example: Blue
+  }
+
+  mat-card-title {
+    font-weight: 500;
+  }
+
+  .total-expense-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 16px 0;
+    text-align: center;
+  }
+  mat-card-actions {
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+}
+
+.add-expense-form-card {
+  margin-top: 0; // No extra top margin if it appears right after summary card
+}
+
+.expense-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Responsive grid for form fields
+  gap: 16px;
+  padding-top: 16px; // Add some padding above form fields
+
+  .form-field {
+    width: 100%; // Ensure form fields take full width of their grid cell
+  }
+
+  .dollar-prefix { // Style for the dollar sign prefix
+    margin-right: 8px;
+    color: rgba(0,0,0,.54);
+  }
+}
+
+.form-actions {
+  grid-column: 1 / -1; // Make action buttons span all columns
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+
+.expense-table-card {
+  mat-card-header {
+    padding-bottom: 8px;
+  }
+  mat-card-subtitle {
+    margin-bottom: 16px;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.amount-column {
+  text-align: right;
+  font-weight: 500;
+}
+.mat-mdc-header-cell.amount-column, .mat-mdc-cell.amount-column {
+ text-align: right;
+}
+
+.mat-column-actions { // Ensure actions column has enough space
+  width: 100px; // Adjust as needed
+  text-align: center;
+}
+.mat-mdc-header-cell.mat-column-actions, .mat-mdc-cell.mat-column-actions {
+ text-align: center;
+}
+
+
+.no-data-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: #757575;
+
+  .no-data-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 24px;
+  }
+  .summary-expense-card .total-expense-value {
+    font-size: 30px;
+  }
 }

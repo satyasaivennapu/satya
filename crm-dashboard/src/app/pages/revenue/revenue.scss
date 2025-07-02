@@ -1,12 +1,101 @@
-.page-container {
-  padding: 0; // Padding is handled by main-content in layout
+.revenue-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; // Space between elements
 }
 
-mat-card {
-  margin-top: 20px; // Add some space if it's the first element
-}
-
-mat-card-title {
-  font-size: 20px;
+.page-title {
+  font-size: 28px;
   font-weight: 500;
+  color: var(--md-sys-color-primary, #2196f3); // Use theme primary color if available
+  margin-bottom: 8px; // Adjust spacing from title to first card
+}
+
+.summary-revenue-card {
+  background-color: var(--md-sys-color-primary-container, #e3f2fd); // Light primary container color
+  color: var(--md-sys-color-on-primary-container, #0d47a1); // Text color on primary container
+
+  .mat-card-avatar.summary-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--md-sys-color-primary, #2196f3);
+  }
+
+  mat-card-title {
+    font-weight: 500;
+  }
+
+  .total-revenue-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 16px 0;
+    text-align: center;
+  }
+  mat-card-actions {
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+}
+
+.revenue-table-card {
+  mat-card-header {
+    padding-bottom: 8px; // Reduce default bottom padding
+  }
+  mat-card-subtitle {
+    margin-bottom: 16px;
+  }
+}
+
+.table-container {
+  overflow-x: auto; // For responsiveness on small screens
+}
+
+.mat-mdc-table { // Target new MDC table class
+  width: 100%;
+}
+
+.amount-column {
+  text-align: right;
+  font-weight: 500;
+}
+
+.mat-mdc-header-cell.amount-column, .mat-mdc-cell.amount-column { // Target new MDC cell classes
+ text-align: right;
+}
+
+.no-data-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: #757575; // Muted text color
+
+  .no-data-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+// Responsive adjustments for table columns if needed
+@media (max-width: 768px) {
+  .mat-mdc-table {
+    // Consider hiding less critical columns or using a more compact display
+    // For example, to hide the 'category' column on small screens:
+    // .mat-column-category { display: none; }
+  }
+  .page-title {
+    font-size: 24px;
+  }
+  .summary-revenue-card .total-revenue-value {
+    font-size: 30px;
+  }
 }

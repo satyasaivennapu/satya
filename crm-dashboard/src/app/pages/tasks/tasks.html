@@ -1,11 +1,151 @@
-<div class="page-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Task Management</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>Task lists, assignments, deadlines, and progress tracking will be available here.</p>
-      <p>This section is currently a placeholder.</p>
-    </mat-card-content>
-  </mat-card>
+<div class="page-container tasks-page">
+  <div class="tasks-header">
+    <h1 class="page-title">Task Board</h1>
+    <button mat-flat-button color="primary">
+      <mat-icon>add_task</mat-icon>
+      Add New Task
+    </button>
+  </div>
+
+  <div class="task-board-columns">
+    <!-- To Do Column -->
+    <div class="task-column">
+      <h2 class="column-title">
+        <mat-icon class="column-icon">list_alt</mat-icon>
+        To Do ({{todoTasks.length}})
+      </h2>
+      <div class="task-list">
+        <mat-card *ngFor="let task of todoTasks" class="task-card mat-elevation-z2" [ngClass]="getPriorityClass(task.priority)">
+          <mat-card-header>
+            <mat-icon mat-card-avatar [matTooltip]="task.priority + ' Priority'" [ngClass]="getPriorityClass(task.priority)">{{getPriorityIcon(task.priority)}}</mat-icon>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+            <mat-card-subtitle *ngIf="task.assignee">Assigned to: {{ task.assignee }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="task-description">{{ task.description }}</p>
+            <div class="task-meta">
+              <mat-chip-listbox aria-label="Task due date">
+                <mat-chip selected color="accent" disabled>
+                  <mat-icon matChipAvatar>event</mat-icon>
+                  Due: {{ task.dueDate | date:'mediumDate' }}
+                </mat-chip>
+              </mat-chip-listbox>
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-icon-button [matMenuTriggerFor]="taskMenu" aria-label="Task actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #taskMenu="matMenu">
+              <button mat-menu-item (click)="startProgress(task)">
+                <mat-icon>play_circle_outline</mat-icon>
+                <span>Start Progress</span>
+              </button>
+              <button mat-menu-item (click)="markAsComplete(task)">
+                <mat-icon>check_circle_outline</mat-icon>
+                <span>Mark as Complete</span>
+              </button>
+              <button mat-menu-item color="warn" (click)="deleteTask(task)">
+                <mat-icon>delete_outline</mat-icon>
+                <span>Delete Task</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+        <p *ngIf="todoTasks.length === 0" class="empty-column-message">No tasks to do.</p>
+      </div>
+    </div>
+
+    <!-- In Progress Column -->
+    <div class="task-column">
+      <h2 class="column-title">
+        <mat-icon class="column-icon">sync</mat-icon>
+        In Progress ({{inProgressTasks.length}})
+      </h2>
+      <div class="task-list">
+        <mat-card *ngFor="let task of inProgressTasks" class="task-card mat-elevation-z2" [ngClass]="getPriorityClass(task.priority)">
+           <mat-card-header>
+            <mat-icon mat-card-avatar [matTooltip]="task.priority + ' Priority'" [ngClass]="getPriorityClass(task.priority)">{{getPriorityIcon(task.priority)}}</mat-icon>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+            <mat-card-subtitle *ngIf="task.assignee">Assigned to: {{ task.assignee }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="task-description">{{ task.description }}</p>
+             <div class="task-meta">
+              <mat-chip-listbox aria-label="Task due date">
+                <mat-chip selected color="accent" disabled>
+                  <mat-icon matChipAvatar>event</mat-icon>
+                  Due: {{ task.dueDate | date:'mediumDate' }}
+                </mat-chip>
+              </mat-chip-listbox>
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+             <button mat-icon-button [matMenuTriggerFor]="taskMenu" aria-label="Task actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #taskMenu="matMenu">
+              <button mat-menu-item (click)="moveToToDo(task)">
+                <mat-icon>replay</mat-icon>
+                <span>Move to "To Do"</span>
+              </button>
+              <button mat-menu-item (click)="markAsComplete(task)">
+                <mat-icon>check_circle_outline</mat-icon>
+                <span>Mark as Complete</span>
+              </button>
+               <button mat-menu-item color="warn" (click)="deleteTask(task)">
+                <mat-icon>delete_outline</mat-icon>
+                <span>Delete Task</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+        <p *ngIf="inProgressTasks.length === 0" class="empty-column-message">No tasks in progress.</p>
+      </div>
+    </div>
+
+    <!-- Completed Column -->
+    <div class="task-column">
+      <h2 class="column-title">
+        <mat-icon class="column-icon">task_alt</mat-icon>
+        Completed ({{completedTasks.length}})
+      </h2>
+      <div class="task-list">
+        <mat-card *ngFor="let task of completedTasks" class="task-card completed-task mat-elevation-z2" [ngClass]="getPriorityClass(task.priority)">
+          <mat-card-header>
+            <mat-icon mat-card-avatar [matTooltip]="task.priority + ' Priority'" [ngClass]="getPriorityClass(task.priority)">{{getPriorityIcon(task.priority)}}</mat-icon>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+            <mat-card-subtitle *ngIf="task.assignee">Completed by: {{ task.assignee }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="task-description">{{ task.description }}</p>
+             <div class="task-meta">
+               <mat-chip-listbox aria-label="Task due date">
+                <mat-chip selected color="primary" disabled> <!-- Different color for completed -->
+                  <mat-icon matChipAvatar>event_available</mat-icon>
+                  Completed: {{ task.dueDate | date:'mediumDate' }} <!-- Assuming dueDate is completion date for simplicity -->
+                </mat-chip>
+              </mat-chip-listbox>
+            </div>
+          </mat-card-content>
+           <mat-card-actions align="end">
+             <button mat-icon-button [matMenuTriggerFor]="taskMenu" aria-label="Task actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #taskMenu="matMenu">
+              <button mat-menu-item (click)="moveToToDo(task)">
+                <mat-icon>replay</mat-icon>
+                <span>Re-open (To Do)</span>
+              </button>
+               <button mat-menu-item color="warn" (click)="deleteTask(task)">
+                <mat-icon>delete_outline</mat-icon>
+                <span>Delete Task</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+        <p *ngIf="completedTasks.length === 0" class="empty-column-message">No tasks completed yet.</p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -3,34 +3,40 @@
 /* -----------------------------
    Create default theme
 ------------------------------ */
+// Define a theme. This can be empty if only CSS custom properties are used for colors.
+// However, mat.all-component-themes still expects a SASS theme map.
 $theme: mat.define-theme((
-  color: (),
+  color: (
+    // It's good to define at least dummy SASS palettes if mat.all-component-themes is used,
+    // even if primary color definitions are overridden by CSS custom properties.
+    // Or, ensure that mat.all-component-themes supports an empty color config
+    // if all components are expected to get colors from CSS custom properties.
+    // For now, let's assume an empty color config is fine with MDC theming if CSS vars are the source of truth.
+  )
 ));
 
-/* 
-  Wrap in :root to satisfy MDC token requirements
+/*
+  Wrap theme includes inside a style rule.
+  This is REQUIRED by Angular Material 20 MDC
+  to ensure CSS custom properties are scoped correctly.
 */
 :root {
-  @include mat.core();
+  @include mat.core(); // Include Angular Material core styles.
+  // Include the theme styles for all components.
   @include mat.all-component-themes($theme);
-
-  /* Light theme overrides */
-  --md-sys-color-primary: #2196f3;   /* Blue */
-  --md-sys-color-secondary: #e91e63; /* Pink */
-  --md-sys-color-background: #fafafa;
-  --md-sys-color-on-background: #212121;
 }
 
 /* -----------------------------
-   Dark theme overrides
+   CSS variable overrides for colors (Source of Truth)
 ------------------------------ */
-.dark-theme {
-  --md-sys-color-primary: #90caf9;   /* Light Blue */
-  --md-sys-color-secondary: #f48fb1; /* Light Pink */
-  --md-sys-color-background: #121212;
-  --md-sys-color-on-background: #eeeeee;
-  background-color: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
+:root {
+  --md-sys-color-primary: #2196f3; // Hex for primary
+  --md-sys-color-primary-rgb: 33, 150, 243; // RGB for primary (used in layout.scss for rgba)
+  --md-sys-color-secondary: #e91e63; // Hex for secondary
+  // Define other custom properties as needed (e.g., on-primary, surface, etc.)
+  // For example, if your components rely on them:
+  --mat-app-background-color: #fafafa; // Background for the entire app
+  --mat-card-background-color: #ffffff; // Background for cards
 }
 
 /* -----------------------------
@@ -40,8 +46,8 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
+  background-color: var(--mat-app-background-color, #fafafa); // Use CSS variable
+  color: var(--md-sys-color-on-surface, #212121); // Example for default text color
 }
 
 html {
@@ -54,4 +60,13 @@ html {
 
 @media (max-width: 600px) {
   html { font-size: 14px; }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  padding: 20px;
 }
