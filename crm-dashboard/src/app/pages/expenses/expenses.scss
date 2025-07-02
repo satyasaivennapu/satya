@@ -1,29 +1,38 @@
-.expenses-page {
+.revenue-page {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding-bottom: 24px;
 }
 
 .page-title {
-  font-family: var(--crm-font-family-headings); // Explicitly use heading font
-  font-size: 28px;
-  font-weight: 600; // Slightly bolder
-  color: var(--crm-on-surface-text);
-  margin-bottom: 20px;
+  font-family: var(--crm-font-family-headings);
+  font-size: 30px;
+  font-weight: 700;
+  color: #00363a; // Dark cyan
+  margin-bottom: 12px;
 }
 
-.summary-expense-card {
-  background-color: var(--crm-accent-red); // Use a different accent for expenses
+/* Summary Card with a gradient teal look */
+.summary-revenue-card {
+  background: linear-gradient(135deg, #ca838d, #5e9a9f); // Deep cyan gradient
   color: #fff;
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  }
 
   .mat-card-avatar.summary-icon {
-    font-size: 48px; // Larger icon
-    width: 48px;
-    height: 48px;
+    font-size: 52px;
+    width: 52px;
+    height: 52px;
+    background-color: rgba(255,255,255,0.2);
     color: #fff;
-    background-color: rgba(255,255,255,0.2); // Subtle background for the icon
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -32,129 +41,122 @@
   }
 
   mat-card-title {
-    font-family: var(--crm-font-family-headings);
+    font-size: 1.2em;
     font-weight: 600;
-    color: #fff;
-    font-size: 1.1em;
   }
 
-  .total-expense-value {
-    font-size: 36px;
-    font-weight: bold;
-    margin: 16px 0;
+  .total-revenue-value {
+    font-size: 38px;
+    font-weight: 700;
     text-align: center;
-    color: #fff;
+    margin: 20px 0;
   }
-  mat-card-actions button {
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.7);
-    .mat-icon { // Ensure icon inside button is also white
-      color: #fff;
-    }
-    &:hover {
-      background-color: rgba(255,255,255,0.1);
-    }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 20px 20px;
   }
 }
 
-.add-expense-form-card {
-  margin-top: 24px;
-  background-color: var(--crm-surface-card);
-  border-radius: 8px;
-  padding: 16px 24px 24px 24px; // More padding for form card
+/* Revenue Table Card */
+.revenue-table-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
 
-  mat-card-title {
-    font-family: var(--crm-font-family-headings);
-    font-size: 1.2em; // Slightly larger title for form card
-    margin-bottom: 16px; // Space below title
-  }
-}
-
-.expense-form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Responsive grid for form fields
-  gap: 16px;
-  padding-top: 16px; // Add some padding above form fields
-
-  .form-field {
-    width: 100%; // Ensure form fields take full width of their grid cell
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   }
 
-  .dollar-prefix { // Style for the dollar sign prefix
-    margin-right: 8px;
-    color: rgba(0,0,0,.54);
-  }
-}
-
-.form-actions {
-  grid-column: 1 / -1; // Make action buttons span all columns
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-
-.expense-table-card {
   mat-card-header {
-    padding-bottom: 8px;
-  }
-  mat-card-subtitle {
-    margin-bottom: 16px;
+    padding-bottom: 4px;
+
+    mat-card-title {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #00363a;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.9em;
+      color: #555;
+    }
   }
 }
 
 .table-container {
   overflow-x: auto;
+  padding: 0 12px 12px 12px;
 }
 
+/* Angular Material MDC Table Styling */
 .mat-mdc-table {
   width: 100%;
-}
+  border-collapse: collapse;
 
-.amount-column {
-  text-align: right;
-  font-weight: 500;
-}
-.mat-mdc-header-cell.amount-column, .mat-mdc-cell.amount-column {
- text-align: right;
-}
+  th.mat-mdc-header-cell, td.mat-mdc-cell {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #333;
+  }
 
-.mat-column-actions { // Ensure actions column has enough space
-  width: 100px; // Adjust as needed
-  text-align: center;
-}
-.mat-mdc-header-cell.mat-column-actions, .mat-mdc-cell.mat-column-actions {
- text-align: center;
-}
+  th.mat-mdc-header-cell {
+    background-color: #e0f7fa;
+    color: #004d40;
+    font-weight: 600;
+  }
 
+  tr.mat-mdc-row:nth-child(even) td.mat-mdc-cell {
+    background-color: #f9f9f9;
+  }
+
+  .amount-column {
+    text-align: right;
+    font-weight: 600;
+    color: #006064;
+  }
+}
 
 .no-data-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px;
+  padding: 36px;
   color: #757575;
 
   .no-data-icon {
-    font-size: 48px;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 16px;
+    font-size: 54px;
+    margin-bottom: 14px;
+    color: #00838f;
   }
 
   p {
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 }
 
+/* Responsive Tweaks */
 @media (max-width: 768px) {
   .page-title {
-    font-size: 24px;
+    font-size: 26px;
   }
-  .summary-expense-card .total-expense-value {
-    font-size: 30px;
+
+  .summary-revenue-card .total-revenue-value {
+    font-size: 32px;
+  }
+
+  .mat-mdc-table th.mat-mdc-header-cell, .mat-mdc-table td.mat-mdc-cell {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-revenue-card .total-revenue-value {
+    font-size: 28px;
   }
 }

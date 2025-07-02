@@ -1,70 +1,92 @@
-// No need for @use '@angular/material' as mat; here if we are only using CSS variables defined in styles.scss
-// However, if any SASS functions from mat are needed later, it should be kept. For now, let's assume CSS vars are sufficient.
-
 .sidenav-container {
-  height: calc(100vh - 64px); /* Assuming toolbar height is 64px (default Material toolbar height) */
+  height: calc(100vh - 64px); /* Assuming toolbar height is 64px */
 }
 
 .sidenav {
-  width: 260px; // Slightly wider for a more modern feel
-  background-color: var(--crm-surface-sidebar); // Use the new sidebar surface color
-  color: var(--crm-on-sidebar-text); // Use text color defined for sidebar
-  border-right: none; // Remove default border if sidebar has distinct background
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1); // Add a subtle shadow to the sidebar
+  width: 260px;
+  background-color: #ccdadc; /* cyan */
+  color: #00363a; /* dark teal text for contrast */
+  box-shadow: 2px 0 5px rgba(77, 113, 116, 0.49);
+
+  mat-nav-list a.mat-list-item {
+    color: #00363a; /* dark text for visibility */
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &.active-link {
+      background-color: rgba(0, 0, 0, 0.08);
+      border-left: 4px solid #006064;
+      color: #006064;
+
+      .mat-icon {
+        color: #006064;
+      }
+    }
+  }
+
+  .mat-icon {
+    color: #006064; /* DARK cyan for icons by default */
+  }
 }
 
+
 .main-content {
-  padding: 24px; // Slightly more padding
-  background-color: var(--crm-surface-background); // Use main app background
+  padding: 24px;
+  background-color: var(--crm-surface-background, #f4f6f8);
 }
 
 mat-toolbar {
-  // background-color is already set by --mat-toolbar-container-background-color in styles.scss
-  // color is already set by --mat-toolbar-standard-state-layer-color in styles.scss
   position: sticky;
   top: 0;
   z-index: 1000;
-  // The mat-elevation-z4 class provides shadow, which is good.
-  // We can add a subtle bottom border for more definition if desired.
-  // border-bottom: 1px solid rgba(var(--md-sys-color-on-primary-rgb, 255, 255, 255), 0.2);
 
-  .mat-icon-button { // Ensure icon buttons on toolbar use the on-primary color
-    color: var(--md-sys-color-on-primary);
+  .mat-icon-button {
+    color: var(--md-sys-color-on-primary, #ffffff);
   }
-  span { // Ensure title text on toolbar uses the on-primary color
-     color: var(--md-sys-color-on-primary);
+  span {
+    color: var(--md-sys-color-on-primary, #ffffff);
   }
 }
+mat-toolbar {
+  background: linear-gradient(90deg, #006064, #00838f);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
+  .mat-icon-button, span {
+    color: #fff; // Ensure icons & text are white
+  }
+}
 mat-nav-list a.mat-list-item {
   display: flex;
   align-items: center;
-  padding: 0 24px; // More padding inside nav items
-  height: 52px;    // Slightly taller nav items
+  padding: 0 24px;
+  height: 52px;
   text-decoration: none;
-  color: var(--crm-on-sidebar-text);
+  color: var(--crm-on-sidebar-text, #ffffff);
   font-weight: 500;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  border-left: 4px solid transparent; // For active indicator
+  border-left: 4px solid transparent;
 
   &:hover {
-    background-color: var(--crm-on-sidebar-hover-background);
+    background-color: var(--crm-on-sidebar-hover-background, rgba(255,255,255,0.1));
   }
 
   &.active-link {
-    background-color: var(--crm-on-sidebar-active-background);
-    color: var(--crm-on-sidebar-active-text);
-    border-left: 4px solid var(--md-sys-color-primary); // Use primary color for active border
+    background-color: var(--crm-on-sidebar-active-background, rgba(255,255,255,0.2));
+    color: var(--crm-on-sidebar-active-text, #fff);
+    border-left: 4px solid var(--md-sys-color-primary, #ffffff);
 
     .mat-icon {
-      color: var(--crm-on-sidebar-active-icon);
+      color: var(--crm-on-sidebar-active-icon, #ffffff);
     }
   }
 }
 
 mat-nav-list .mat-icon {
-  margin-right: 20px; // More space for icon
-  color: var(--crm-on-sidebar-icon);
+  margin-right: 20px;
+  color: var(--crm-on-sidebar-icon, #e0f7fa);
 }
 
 /* Responsive adjustments */
@@ -76,7 +98,7 @@ mat-nav-list .mat-icon {
     padding: 16px;
   }
   mat-nav-list a.mat-list-item {
-    padding: 0 16px; // Adjust padding for smaller sidenav
+    padding: 0 16px;
     height: 48px;
   }
   mat-nav-list .mat-icon {
