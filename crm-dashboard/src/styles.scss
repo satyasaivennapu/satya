@@ -1,59 +1,57 @@
 @use '@angular/material' as mat;
 
-/* You can add global styles to this file, and also import other style files */
+/* -----------------------------
+   Create default theme
+------------------------------ */
+$theme: mat.define-theme((
+  color: (),
+));
 
+/* 
+  Wrap in :root to satisfy MDC token requirements
+*/
+:root {
+  @include mat.core();
+  @include mat.all-component-themes($theme);
+
+  /* Light theme overrides */
+  --md-sys-color-primary: #2196f3;   /* Blue */
+  --md-sys-color-secondary: #e91e63; /* Pink */
+  --md-sys-color-background: #fafafa;
+  --md-sys-color-on-background: #212121;
+}
+
+/* -----------------------------
+   Dark theme overrides
+------------------------------ */
+.dark-theme {
+  --md-sys-color-primary: #90caf9;   /* Light Blue */
+  --md-sys-color-secondary: #f48fb1; /* Light Pink */
+  --md-sys-color-background: #121212;
+  --md-sys-color-on-background: #eeeeee;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+/* -----------------------------
+   Global resets & base styles
+------------------------------ */
 html, body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa; /* A light background for the whole app */
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
 }
 
-/* Angular Material theme setup */
-@include mat.core();
-
-/* Define a default theme (e.g., indigo-pink) */
-$crm-primary: mat.define-palette(mat.$indigo-palette);
-$crm-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$crm-warn: mat.define-palette(mat.$red-palette);
-
-$crm-theme: mat.define-light-theme((
-  color: (
-    primary: $crm-primary,
-    accent: $crm-accent,
-    warn: $crm-warn,
-  )
-));
-
-@include mat.all-component-themes($crm-theme);
-
-/* Global styles for a cleaner look */
-body {
-  overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile when not needed */
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.container {
-  padding: 20px;
-}
-
-/* Responsive typography (optional, but good for modern look) */
 html {
   font-size: 16px;
 }
 
 @media (max-width: 960px) {
-  html {
-    font-size: 15px;
-  }
+  html { font-size: 15px; }
 }
 
 @media (max-width: 600px) {
-  html {
-    font-size: 14px;
-  }
+  html { font-size: 14px; }
 }

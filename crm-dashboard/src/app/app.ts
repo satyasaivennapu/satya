@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-// RouterOutlet is no longer directly used here, LayoutComponent handles it.
-import { LayoutComponent } from './layout/layout'; // Import the layout component
+import { LayoutComponent } from './layout/layout'; // your main layout component
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Ensure it's standalone
-  imports: [LayoutComponent], // Remove RouterOutlet, LayoutComponent handles its own RouterOutlet
-  template: '<app-layout></app-layout>', // Use LayoutComponent as the main view
+  standalone: true,
+  imports: [LayoutComponent],
+  template: '<app-layout></app-layout>',
   styleUrl: './app.scss'
 })
-export class App { // Class name is App
+export class App {
   protected title = 'crm-dashboard';
+
+  toggleDarkTheme(): void {
+    document.body.classList.toggle('dark-theme');
+  }
 }
