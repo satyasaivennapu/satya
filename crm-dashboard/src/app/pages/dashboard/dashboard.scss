@@ -1,0 +1,158 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px; /* Use min-height for flexibility */
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  width: 100%;
+  height: 100%; // Fill the grid tile
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+
+  mat-card-header {
+    padding-bottom: 8px; /* Adjust spacing */
+  }
+
+  .mat-card-avatar {
+    font-size: 36px; /* Larger icon */
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 5px; // Added padding for background visibility
+    background-color: rgba(0,0,0,0.05); // Default light background
+  }
+
+  .icon-primary {
+    color: var(--mat-primary-500, #3f51b5); // Use Material theme variable or fallback
+    background-color: rgba(63, 81, 181, 0.1);
+  }
+  .icon-accent {
+    color: var(--mat-accent-500, #ff4081);
+    background-color: rgba(255, 64, 129, 0.1);
+  }
+  .icon-warn {
+    color: var(--mat-warn-500, #f44336);
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  // Add more .icon-COLOR if other colors are used in mock data
+
+  mat-card-title {
+    font-size: 1em; // Relative to parent for better scaling
+    font-weight: 500;
+    line-height: 1.3; // Adjusted for better readability
+    white-space: normal; // Allow text to wrap
+    word-break: break-word; // Break words if necessary to prevent overflow
+    margin-bottom: 4px; // Add some space below the title
+  }
+
+  mat-card-content {
+    padding-top: 0; /* Adjust spacing */
+  }
+
+  .summary-value {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+    text-align: right;
+  }
+}
+
+/* Charts Section */
+.charts-section {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns for charts */
+  gap: 20px;
+}
+
+.chart-card {
+  width: 100%;
+  display: flex; /* For centering content if needed */
+  flex-direction: column;
+  overflow: hidden; /* Prevent chart overflow issues */
+
+  mat-card-content {
+    padding-top: 16px;
+    flex-grow: 1; /* Allow content to take available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center chart or loader */
+    align-items: center; /* Center chart or loader */
+    min-height: 300px; /* Ensure a minimum height for charts */
+  }
+}
+
+.chart-content-wrapper { // Applied directly in HTML, this selector is for clarity
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.chart-loader { // Class for spinners inside chart cards
+  min-height: 250px; // Ensure spinner is visible during load
+}
+
+.no-chart-data {
+  color: #757575;
+  font-style: italic;
+}
+
+// ngx-charts specific styling (optional, for fine-tuning)
+ngx-charts-bar-vertical, ngx-charts-pie-chart {
+  width: 100% !important; // Override default width if necessary
+  height: auto !important; // Adjust height as needed
+  display: block; // Ensure proper block layout
+  margin: auto; // Center the chart component itself if its container is larger
+}
+
+
+/* Responsive adjustments for charts */
+@media (max-width: 959px) { /* Tablet and smaller */
+  .charts-section {
+    grid-template-columns: 1fr; /* Stack charts vertically */
+  }
+  .chart-card mat-card-content {
+    min-height: 280px; /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 599px) { /* Mobile */
+  h1 {
+    font-size: 20px;
+  }
+  .summary-card mat-card-title {
+    font-size: 14px;
+  }
+  .summary-value {
+    font-size: 22px;
+  }
+  .chart-card mat-card-content {
+    min-height: 250px; /* Further adjust for mobile */
+  }
+}
