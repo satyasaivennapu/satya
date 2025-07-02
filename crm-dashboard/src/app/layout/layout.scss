@@ -6,58 +6,56 @@
 
 .sidenav {
   width: 250px;
-  // Use Material's theme background color for sidenav for consistency
-  // background-color: mat.get-color-from-palette(mat.$grey-palette, 100); // Lighter grey
-  // Or, let the theme dictate if not overriding explicitly
-  border-right: 1px solid rgba(0,0,0,0.12); // Subtle border
+  border-right: 1px solid rgba(0,0,0,0.12);
 }
 
 .main-content {
   padding: 20px;
-  background-color: #fafafa; // Consistent light background for content area
+  background-color: #fafafa;
 }
 
 mat-toolbar {
   position: sticky;
   top: 0;
-  z-index: 1000; // Ensure toolbar stays on top
+  z-index: 1000;
 }
 
-mat-nav-list a.mat-list-item { // Target Material's own class for specificity
+mat-nav-list a.mat-list-item {
   display: flex;
   align-items: center;
-  padding: 0 16px; // Standard Material padding
-  height: 48px; // Standard Material list item height
+  padding: 0 16px;
+  height: 48px;
   text-decoration: none;
-  color: inherit; // Inherit text color
-  font-weight: 500; // Slightly bolder for nav items
+  color: inherit;
+  font-weight: 500;
   transition: background-color 0.2s ease-in-out;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04); // Subtle hover
+    background-color: rgba(0, 0, 0, 0.04);
   }
 
-  &.active-link { // Style for the active route
-    background-color: mat.get-color-from-palette(mat.$indigo-palette, 50); // Light primary color
-    color: mat.get-color-from-palette(mat.$indigo-palette, 700); // Darker primary text
+  &.active-link {
+    $active-link-palette: mat.$indigo-palette; // Define local variable for the palette
+    background-color: mat.get-color-from-palette($active-link-palette, 50);
+    color: mat.get-color-from-palette($active-link-palette, 700);
 
-    .mat-icon { // Icon color for active link
-      color: mat.get-color-from-palette(mat.$indigo-palette, 700);
+    .mat-icon {
+      color: mat.get-color-from-palette($active-link-palette, 700);
     }
   }
 }
 
-mat-nav-list .mat-icon { // General icon styling in nav
-  margin-right: 16px; // Consistent spacing
-  color: rgba(0,0,0,0.54); // Standard icon color
+mat-nav-list .mat-icon {
+  margin-right: 16px;
+  color: rgba(0,0,0,0.54);
 }
 
 /* Responsive adjustments */
-@media (max-width: 599.98px) { // Targeting small screens (Material's Handset portrait breakpoint)
+@media (max-width: 599.98px) {
   .sidenav {
-    width: 230px; // Slightly adjust for smaller screens if needed
+    width: 230px;
   }
   .main-content {
-    padding: 16px; // Reduce padding on small screens
+    padding: 16px;
   }
 }
