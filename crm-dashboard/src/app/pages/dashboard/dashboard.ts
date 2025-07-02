@@ -29,10 +29,7 @@ export class DashboardComponent implements OnInit {
   private mockDataService = inject(MockDataService);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+    .pipe(map(result => result.matches), shareReplay());
 
   summaryCards$: Observable<SummaryCardData[]> | undefined;
   isLoadingSummary = true;
@@ -42,34 +39,27 @@ export class DashboardComponent implements OnInit {
   expenseDistributionData$: Observable<ChartDataItem[]> | undefined;
   isLoadingExpenseChart = true;
 
-  // ngx-charts options
-  barChartView: [number, number] = [700, 300]; // Ensure this is not undefined
-  barChartShowXAxis = true;
-  barChartShowYAxis = true;
-  barChartGradient = false;
-  barChartShowLegend = false;
-  barChartShowXAxisLabel = true;
-  barChartXAxisLabel = 'Month';
-  barChartShowYAxisLabel = true;
-  barChartYAxisLabel = 'Revenue (USD)';
+  // Bar Chart Config
+  barChartView: [number, number] = [undefined as any, 360];
   barChartColorScheme: Color = {
-    name: 'cool',
+    name: 'pastel',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#3f51b5', '#00bcd4', '#8bc34a', '#ff9800', '#9c27b0']
   };
 
-  pieChartView: [number, number] = [500, 300]; // Ensure this is not undefined
+  // Pie Chart Config
+  pieChartView: [number, number] = [undefined as any, 320];
+  pieChartColorScheme: Color = {
+    name: 'bright',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#3f51b5', '#00bcd4', '#8bc34a', '#ff9800', '#9c27b0', '#ff4081']
+  };
   pieChartGradient = true;
   pieChartShowLegend = true;
   pieChartShowLabels = true;
-  pieChartIsDoughnut = false;
-  pieChartColorScheme: Color = {
-    name: 'vivid',
-    selectable: true,
-    group: ScaleType.Ordinal,
-    domain: ['#3f51b5', '#ff4081', '#4CAF50', '#FFC107', '#795548', '#00BCD4']
-  };
+  pieChartIsDoughnut = true;
 
   ngOnInit(): void {
     this.loadSummaryCards();
@@ -79,22 +69,19 @@ export class DashboardComponent implements OnInit {
 
   loadSummaryCards(): void {
     this.isLoadingSummary = true;
-    this.summaryCards$ = this.mockDataService.getSummaryCardsData().pipe(
-      tap(() => this.isLoadingSummary = false)
-    );
+    this.summaryCards$ = this.mockDataService.getSummaryCardsData()
+      .pipe(tap(() => this.isLoadingSummary = false));
   }
 
   loadMonthlyRevenueChart(): void {
     this.isLoadingRevenueChart = true;
-    this.monthlyRevenueData$ = this.mockDataService.getMonthlyRevenueData().pipe(
-      tap(() => this.isLoadingRevenueChart = false)
-    );
+    this.monthlyRevenueData$ = this.mockDataService.getMonthlyRevenueData()
+      .pipe(tap(() => this.isLoadingRevenueChart = false));
   }
 
   loadExpenseDistributionChart(): void {
     this.isLoadingExpenseChart = true;
-    this.expenseDistributionData$ = this.mockDataService.getExpenseDistributionData().pipe(
-      tap(() => this.isLoadingExpenseChart = false)
-    );
+    this.expenseDistributionData$ = this.mockDataService.getExpenseDistributionData()
+      .pipe(tap(() => this.isLoadingExpenseChart = false));
   }
 }
